@@ -1,11 +1,20 @@
 import './App.css'
 import { useState } from 'react'
 
+// Material-UI Imports
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import IconButton from '@mui/material/IconButton'
+import Grid from '@mui/material/Grid'
+import DeleteIcon from '@mui/icons-material/Delete'
+
 function App() {
   const [tasks, setTasks] = useState(['1', '2'])
   const [item, setItem] = useState('')
 
   function removeItem(taskName) {
+    console.log('called')
     setTasks(tasks.filter((task) => task != taskName))
   }
   function addItem() {
@@ -17,19 +26,32 @@ function App() {
     }
   }
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'enter') {
-      console.log('enter has been pressed')
-      addItem()
-    }
-  }
   return (
     <div className="App">
-      <ul>
-        {tasks.map((task) => {
-          return <li key={task}>{task}</li>
-        })}
-      </ul>
+      <Grid item xs={12} md={6}>
+        <List>
+          {tasks.map((task) => {
+            return (
+              <ListItem
+                key={task}
+                secondaryAction={
+                  <IconButton
+                    onClick={() => {
+                      removeItem(task)
+                    }}
+                    edge="end"
+                    aria-label="delete"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                }
+              >
+                <ListItemText primary={task} />
+              </ListItem>
+            )
+          })}
+        </List>
+      </Grid>
       <input
         placeholder="task"
         type="text"
