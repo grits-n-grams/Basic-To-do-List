@@ -16,6 +16,13 @@ function App() {
       setItem('')
     }
   }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'enter') {
+      console.log('enter has been pressed')
+      addItem()
+    }
+  }
   return (
     <div className="App">
       <ul>
@@ -25,7 +32,7 @@ function App() {
       </ul>
       <input
         placeholder="task"
-        type='"text"'
+        type="text"
         value={item}
         onChange={(e) => {
           setItem(e.target.value)
