@@ -10,15 +10,17 @@ import Grid from '@mui/material/Grid'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 function App() {
-  const [tasks, setTasks] = useState(['1', '2'])
+  const [tasks, setTasks] = useState(['Task 1', 'Task 2'])
   const [item, setItem] = useState('')
 
   function removeItem(taskName) {
     console.log('called')
     setTasks(tasks.filter((task) => task != taskName))
   }
-  function addItem() {
+  function addItem(e) {
+    e.preventDefault()
     if (item != '' && !tasks.includes(item)) {
+      
       let cache = tasks
       cache.push(item)
       setTasks(cache)
@@ -52,8 +54,10 @@ function App() {
           })}
         </List>
       </Grid>
+      <form action="submit" onSubmit={addItem}>
+
       <input
-        placeholder="task"
+        placeholder="Task"
         type="text"
         value={item}
         onChange={(e) => {
@@ -61,6 +65,7 @@ function App() {
         }}
       />
       <button onClick={addItem}>ADD ITEM</button>
+      </form>
     </div>
   )
 }
